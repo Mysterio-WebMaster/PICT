@@ -1,6 +1,5 @@
 *{
-    font-family: 'Times New Roman', Times, serif;
-    overflow-x: visible;
+    
 }
 button{
     background: #6946c6;
@@ -14,15 +13,10 @@ button{
 input{
     padding: 7px 15px;
     border-radius: 5px;
-    margin: 5px;
-    width: 250px;
+    width: 150px;
 }
 
-#primaryParent{
-    background: black;
-    color: white;
-    margin: 0;
-}
+
 
 .addBP{
     position: absolute;
@@ -53,11 +47,61 @@ input{
 
 .main{
     width: max-content;
-    
+    margin: 0;
 }
 
 #childs{
     display: inline-flex;
-    margin: 15px;
+    margin: 0px;
     
+}
+
+.childHandler{
+    background: #292929;
+    padding-left: 15px;
+    border-radius: 3px;
+}
+
+.childHandler input{
+    background: transparent;
+    border: none;
+    outline: none;
+    color: white;
+    margin: 0;
+}
+
+.childHandler button{
+    background: transparent;
+}
+
+.AddField2{
+    border: 1px solid gray;
+}
+
+.AddField2 button, .AddField2 input{
+    background: transparent;
+    color: black;
+    border: none;
+    outline: none;
+}
+
+.plus{
+    font-weight: 700;
+    background-color: #6946c6;
+    color: white;
+    padding: 5px;
+    border-radius: 35%;
+}
+
+.close{
+    color: gray;
+}
+.addsubBP{
+    width: 100%;
+    background: none;
+    color: gray;
+}
+
+.addsubBP span{
+    color: #6946c6;
 }
