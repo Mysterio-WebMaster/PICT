@@ -28,7 +28,6 @@ export default function AddField(props) {
     const handlePDelete = (i) => {
         
        props.childToParent(i);
-       setParent()
        
        
     }
@@ -78,7 +77,6 @@ export default function AddField(props) {
         </div>
 
          {val.map((data,i)=>{
-            {setSomeData(data)}
             return(
                 <div className="AddField2" key={i} >
                     
@@ -104,7 +102,8 @@ export default function AddField(props) {
 
          <button onClick={(e)=>handleAdd(e.preventDefault())} className='addsubBP'> 
 
-         <span><PlusCircleFill/></span> Add sub BP</button>
+         <span><PlusCircleFill/></span> Add sub BP
+         </button>
     </div>
     
   )
