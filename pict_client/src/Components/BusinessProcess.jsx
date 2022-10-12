@@ -2,62 +2,132 @@ import React from 'react'
 import { useState } from 'react';
 import AddField from './AddField';
 import {PlusCircleFill, XLg} from 'react-bootstrap-icons'
-import BusinessProcessDataTable from './BusinessProcessDataTable';
+//import BusinessProcessDataTable from './BusinessProcessDataTable';
 import { Container } from 'react-bootstrap';
+import { Await, Link } from 'react-router-dom';
+import axios, { AxiosHeaders } from 'axios';
+import { useEffect } from 'react';
+import {useNavigate} from 'react-router-dom'
 
 export default function BusinessProcess() {
+    let navigate = useNavigate();
 
     //ADDING FIELD
     const [add,setAdd] = useState([]);
-    const [count, setCount] = useState(0);
+    let [count, setCount] = useState(0);
 
     const handleAdd=()=>{
-        
         const ad=[...add,[]];
         setAdd(ad);
-        setCount(count+1);
+
+        
+            setFormData({
+                parent: parent,
+                child: input
+            })
+    
+           let fdata = [...data, formdata];
+           setData(fdata)
+        
+        
+        
+       //console.log(data);
+        //new childFormHandle();
     }
 
-    const handleDelete = (i) => {
-        const deleteAdd = [...add];
-        deleteAdd.splice(i, 1);
-        console.log(i);
-        setAdd(deleteAdd);
-    }
+    
 
     //FORM HANDLER
 
-    const [formdata, setFormData] = useState({});
+    const [formdata, setFormData] = useState(
+        {
+            parent:"",
+            child: ""
+        }
+    );
+
+    const [data, setData] = useState([]);
+    const [input, setInput] = useState([]);
+    const [parent, setParent] = useState([]);
     const [view, setView] = useState(false);
 
-    const save =(e) => {
-        e.preventDefault();
-        if(view == false)
-            setView(true);
-        else
-            setView(false);
-        console.log(view);
+    const childInput = (count) => {
+       // console.log("Count: "+count);
     }
 
-    const childToParent = (some) => {
-        console.log("Some: "+some);
-        const deleteAdd = [...add];
-        deleteAdd.splice(some, 1);
-        setAdd(deleteAdd);
+    const childFormHandle = (someChildern, someParent) =>{
+        //console.log(someParent);
+        setInput(someChildern);
+        setParent(someParent);
+        //console.log(" triggered");
+    }
+
+    const handleparentData = (pData, i) => {
+        const parentInputData = [...add];
+        parentInputData[i] = pData;
+        setAdd(parentInputData);
     }
     
 
+    const childToParent = (anyIndex) => {
+        const deleteAdd = [...add];
+        deleteAdd.splice(anyIndex, 1);
+       //console.log(deleteAdd);
+       setAdd(deleteAdd);
+    }
+
+    //DATA VIEWER
+    let save = () => {
+        setFormData({
+            parent: parent,
+            child: input
+        })
+
+       let fdata = [...data, formdata];
+       setData(fdata)
+       //console.log(data);
+        /*
+       axios.post('http://localhost:5000/Submit', data)
+       .then( (res) =>  console.log(res.data) );
+       
+       */
+        
+    }
+
+
+    const postData = () => {
+
+        // let temp = [...data]
+        // temp.splice(0,2)
+        // setData(temp);
+         
+
+      //setData([]);
+      
+    }
+
+    useEffect(() => {
+        //console.log(formdata);
+        
+        console.log(data);
+
+      }); 
+
+
   return (
     <div className='Bp'>
+        <form  onSubmit={e => save(e.preventDefault())}>
         <header>
             <h2>Business Process</h2>
         </header>
         
         <div className="handler">
             <button type='button' className='addBp' onClick={(e)=>handleAdd(e.preventDefault())}> <PlusCircleFill/> Add BP</button>
-            {(view == false) && <button className='save' onClick={save}>Save</button>}
-            {(view == true) && <button className='save' onClick={save}>back</button>}
-            
+            <button type='submit' className='save'>Save</button>
+            <Link to="/Table">
+            Show
+            </Link>
+
         </div>
         <br />
           <br />
@@ -65,17 +135,29 @@ export default function BusinessProcess() {
 
         {(view == false) && 
         <div className="main">
-                {add.map((x, i)=>{
+                {add.map((data, i)=>{
                         return (
-                                <div id='childs'>
-                                    {<AddField  index = {i}
-                                    childToParent = {childToParent}
+                                <div id='childs' key={i}>
+                                    {<AddField  
+                                        index = {i}
+
+                                        childToParent = {childToParent}
+
+                                        childFormHandle = {childFormHandle}
+
+                                        childInput = {childInput}
+
+                                        data = {data}
+
+                                        handleparentData = {handleparentData}
+                                    
                                      />
-                                    }{/*<button onClick={(e)=>handleDelete(i, e.preventDefault())}><span className='closeParent'><XLg/></span></button> */} 
+                                    }
+                                    {/*<button onClick={(e)=>handleDelete(i, e.preventDefault())}><span className='closeParent'><XLg/></span></button> */ }
                                     
 
                                 </div>
-                                
+            
                                 
                         );
                         
@@ -84,9 +166,7 @@ export default function BusinessProcess() {
         </div>
         }
 
-        {(view == true) && <BusinessProcessDataTable/>}
-
-        
+        </form>
     </div>
   )
 }

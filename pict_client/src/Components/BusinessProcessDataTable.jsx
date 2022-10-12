@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { useEffect } from 'react';
 import {Container} from 'react-bootstrap'
+import { Link } from 'react-router-dom';
+import axios from 'axios'
 
 export default function BusinessProcessDataTable() {
 
@@ -9,47 +11,44 @@ export default function BusinessProcessDataTable() {
     let [desc, setDesc] = useState([]);
 
     useEffect(() => {
-         fetch("http://localhost:5000/")
-        .then(res => res.json())
-        .then(data => setFetchedData(data));
 
-        fetch("http://localhost:5000/desc")
-        .then(res => res.json())
-        .then(data => setDesc(data));
+        axios.get('http://localhost:5000/demoFetch')
+        .then(response => {setFetchedData(response.data);
+        
+        });
+      },[]);
 
-      }, []);
-      
-      
+
+
+      const something = () => {
+        return(
+            <p>{}</p>
+
+        )
+          
+      }
 
   return (
     <div>
-        <Container>
-        <table className="table table-bordered">
-        <thead>
-        <tr className='table-dark'>
-        {desc.map((item, i)=>(
-                <th>{item.Field}</th>
-        ) )}
-        </tr>
-        </thead>
-        <tbody>
-        {fetchedData.map((item, i)=>(
-            <tr>
-                <td>{item.id}</td>
-                <td>{item.Currency}</td>
-                <td>{item.Channel}</td>
-                <td>{item.Account}</td>
-                <td>{item.Approval}</td>
-            </tr>
-        ) )}
-            
-        </tbody>
-        </table>
+          <div className="handler">
+            <Link to="/">
+            BACK
+            </Link>
 
+          </div>
+
+        <Container> 
+          {fetchedData.parent} <br /> 
+          {fetchedData.child0}
+
+          {something}
+          
+          
+          
+          
+          
         </Container>
-
-        
-        
+        <h3>Table</h3> 
     </div>
   )
 }
