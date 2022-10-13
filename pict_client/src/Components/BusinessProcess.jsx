@@ -147,7 +147,7 @@ export default function BusinessProcess() {
 
                                         childInput = {childInput}
 
-                                        //data = {data}
+                                        data = {data}
 
                                         handleparentData = {handleparentData}
                                     
